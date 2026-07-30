@@ -28,6 +28,9 @@ jobs:
       MAIL_TO: ${{ vars.MAIL_TO }}
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
