@@ -30,6 +30,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Debug folder structure
+        run: |
+          ls -la
+          echo "-------------------"
+          ls -la Pat.Containers.Job.YoutubeChannelGuard || echo "Pat.Containers.Job.YoutubeChannelGuard folder not found"
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
