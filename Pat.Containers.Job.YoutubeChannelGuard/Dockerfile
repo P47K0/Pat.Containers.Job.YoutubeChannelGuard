@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["Pat.Containers.Job.YoutubeChannelGuard.csproj", "Pat.Containers.Job.YoutubeChannelGuard/]
+COPY ["Pat.Containers.Job.YoutubeChannelGuard.csproj", "Pat.Containers.Job.YoutubeChannelGuard/"]
 RUN dotnet restore "Pat.Containers.Job.YoutubeChannelGuard.csproj"
 
 COPY . .
