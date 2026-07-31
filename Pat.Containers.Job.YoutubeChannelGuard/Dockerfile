@@ -2,8 +2,8 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["Pat.Containers.Job.YoutubeChannelGuard.csproj", "Pat.Containers.Job.YoutubeChannelGuard/]
-RUN dotnet restore "Pat.Containers.Job.YoutubeChannelGuard.csproj"
+COPY ["Pat.Containers.Job.YoutubeChannelGuard/Pat.Containers.Job.YoutubeChannelGuard.csproj", "Pat.Containers.Job.YoutubeChannelGuard/"]
+RUN dotnet restore "Pat.Containers.Job.YoutubeChannelGuard/Pat.Containers.Job.YoutubeChannelGuard.csproj"
 
 COPY . .
 
@@ -17,6 +17,5 @@ RUN dotnet publish "Pat.Containers.Job.YoutubeChannelGuard.csproj" -c $BUILD_CON
 
 FROM mcr.microsoft.com/dotnet/runtime:10.0
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Pat.Containers.Job.YoutubeChannelGuard.dll"]
-	

@@ -28,6 +28,15 @@ jobs:
       MAIL_TO: ${{ vars.MAIL_TO }}
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Debug folder structure
+        run: |
+          ls -la
+          echo "-------------------"
+          ls -la Pat.Containers.Job.YoutubeChannelGuard || echo "Pat.Containers.Job.YoutubeChannelGuard folder not found"
+      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -43,7 +52,7 @@ jobs:
           context: .
           file: ./Pat.Containers.Job.YoutubeChannelGuard/Dockerfile
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/capacity-simulator:${{ env.IMAGE_TAG }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -70,14 +79,14 @@ jobs:
               --resource-group "$RESOURCE_GROUP" \
               --image "$IMAGE" \
               --set-env-vars \
-                YouTubeApiKey="$YOUTUBE_API_KEY" \
-                YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
-                YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
-                AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
-                AksConnectionString="$ACS_CONNECTION_STRING" \
-                MailFrom="$MailFrom" \
-                MailTo="$MailTo" \
-              --revision-suffix "sim-${{ github.run_number }}"               
+                AppSettings__YouTubeApiKey="$YOUTUBE_API_KEY" \
+                AppSettings__YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
+                AppSettings__YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
+                AppSettings__AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
+                AppSettings__AcsConnectionString="$ACS_CONNECTION_STRING" \
+                AppSettings__MailFrom="$MAIL_FROM" \
+                AppSettings__MailTo="$MAIL_TO" \
+              --revision-suffix "ytcg-${{ github.run_number }}"               
           else
             echo "Container App does not exist → Creating..."
             az containerapp create \
@@ -87,17 +96,17 @@ jobs:
               --image "$IMAGE" \
               --ingress external \
               --target-port 8080 \
-              --revision-suffix "sim-${{ github.run_number }}" \
+              --revision-suffix "ytcg-${{ github.run_number }}" \
               --cpu 0.25 \
               --memory 0.5Gi \
               --min-replicas 0 \
               --max-replicas 1 \
               --env-vars \
-                YouTubeApiKey="$YOUTUBE_API_KEY" \
-                YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
-                YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
-                AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
-                AksConnectionString="$ACS_CONNECTION_STRING" \
-                MailFrom="$MailFrom" \
-                MailTo="$MailTo"
+                AppSettings__YouTubeApiKey="$YOUTUBE_API_KEY" \
+                AppSettings__YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
+                AppSettings__YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
+                AppSettings__AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
+                AppSettings__AcsConnectionString="$ACS_CONNECTION_STRING" \
+                AppSettings__MailFrom="$MAIL_FROM" \
+                AppSettings__MailTo="$MAIL_TO"
           fi
