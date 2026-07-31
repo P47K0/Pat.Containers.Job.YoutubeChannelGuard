@@ -84,8 +84,8 @@ jobs:
                 YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
                 AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
                 AksConnectionString="$ACS_CONNECTION_STRING" \
-                MailFrom="$MailFrom" \
-                MailTo="$MailTo" \
+                MailFrom="$MAIL_FROM" \
+                MailTo="$MAIL_TO" \
               --revision-suffix "sim-${{ github.run_number }}"               
           else
             echo "Container App does not exist → Creating..."
@@ -107,6 +107,6 @@ jobs:
                 YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
                 AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
                 AksConnectionString="$ACS_CONNECTION_STRING" \
-                MailFrom="$MailFrom" \
-                MailTo="$MailTo"
+                MailFrom="$MAIL_FROM" \
+                MailTo="$MAIL_TO"
           fi
