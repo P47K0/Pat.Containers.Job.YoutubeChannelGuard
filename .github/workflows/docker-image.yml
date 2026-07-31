@@ -83,7 +83,7 @@ jobs:
                 AppSettings__YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
                 AppSettings__YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
                 AppSettings__AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
-                AppSettings__AksConnectionString="$ACS_CONNECTION_STRING" \
+                AppSettings__AcsConnectionString="$ACS_CONNECTION_STRING" \
                 AppSettings__MailFrom="$MAIL_FROM" \
                 AppSettings__MailTo="$MAIL_TO" \
               --revision-suffix "ytcg-${{ github.run_number }}"               
@@ -106,7 +106,7 @@ jobs:
                 AppSettings__YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
                 AppSettings__YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
                 AppSettings__AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
-                AppSettings__AksConnectionString="$ACS_CONNECTION_STRING" \
+                AppSettings__AcsConnectionString="$ACS_CONNECTION_STRING" \
                 AppSettings__MailFrom="$MAIL_FROM" \
                 AppSettings__MailTo="$MAIL_TO"
           fi
