@@ -79,14 +79,14 @@ jobs:
               --resource-group "$RESOURCE_GROUP" \
               --image "$IMAGE" \
               --set-env-vars \
-                YouTubeApiKey="$YOUTUBE_API_KEY" \
-                YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
-                YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
-                AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
-                AksConnectionString="$ACS_CONNECTION_STRING" \
-                MailFrom="$MAIL_FROM" \
-                MailTo="$MAIL_TO" \
-              --revision-suffix "sim-${{ github.run_number }}"               
+                AppSettings__YouTubeApiKey="$YOUTUBE_API_KEY" \
+                AppSettings__YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
+                AppSettings__YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
+                AppSettings__AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
+                AppSettings__AksConnectionString="$ACS_CONNECTION_STRING" \
+                AppSettings__MailFrom="$MAIL_FROM" \
+                AppSettings__MailTo="$MAIL_TO" \
+              --revision-suffix "ytcg-${{ github.run_number }}"               
           else
             echo "Container App does not exist → Creating..."
             az containerapp create \
@@ -96,17 +96,17 @@ jobs:
               --image "$IMAGE" \
               --ingress external \
               --target-port 8080 \
-              --revision-suffix "sim-${{ github.run_number }}" \
+              --revision-suffix "ytcg-${{ github.run_number }}" \
               --cpu 0.25 \
               --memory 0.5Gi \
               --min-replicas 0 \
               --max-replicas 1 \
               --env-vars \
-                YouTubeApiKey="$YOUTUBE_API_KEY" \
-                YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
-                YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
-                AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
-                AksConnectionString="$ACS_CONNECTION_STRING" \
-                MailFrom="$MAIL_FROM" \
-                MailTo="$MAIL_TO"
+                AppSettings__YouTubeApiKey="$YOUTUBE_API_KEY" \
+                AppSettings__YouTubeChannelId="$YOUTUBE_CHANNEL_ID" \
+                AppSettings__YouTubeChannelHandle="$YOUTUBE_CHANNEL_HANDLE" \
+                AppSettings__AllowedVideoCount="$ALLOWED_VIDEO_COUNT" \
+                AppSettings__AksConnectionString="$ACS_CONNECTION_STRING" \
+                AppSettings__MailFrom="$MAIL_FROM" \
+                AppSettings__MailTo="$MAIL_TO"
           fi
