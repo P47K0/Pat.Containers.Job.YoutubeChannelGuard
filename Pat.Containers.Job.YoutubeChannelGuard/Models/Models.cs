@@ -13,11 +13,18 @@ public sealed record Settings(
 {
     public static Settings Load()
     {
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
-            .AddEnvironmentVariables()
-            .Build();
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory);
+
+        var appSettingsPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+        if (File.Exists(appSettingsPath))
+        {
+            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
+        }
+
+        builder.AddEnvironmentVariables();
+
+        var configuration = builder.Build();
 
         var settings = configuration.GetSection("AppSettings").Get<Settings>()
             ?? throw new InvalidOperationException("Failed to load settings.");
