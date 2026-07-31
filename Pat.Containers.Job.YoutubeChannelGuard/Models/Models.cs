@@ -11,15 +11,14 @@ public sealed record Settings(
     string MailFrom,
     string MailTo)
 {
-    public static Settings Load()
+    public static Settings Load(bool useAppSettings = false)
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory);
 
-        var appSettingsPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
-        if (File.Exists(appSettingsPath))
+        if (useAppSettings)
         {
-            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
+            builder.AddJsonFile("appsettings.Development.json", optional: false, reloadOnChange: false);
         }
 
         builder.AddEnvironmentVariables();
