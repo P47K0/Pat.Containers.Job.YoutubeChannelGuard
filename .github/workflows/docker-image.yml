@@ -80,7 +80,7 @@ jobs:
               --cpu 0.25 \
               --memory 0.5Gi \
               --trigger-type Schedule \
-              --cron-expression "*/15 * * * *" \
+              --cron-expression "*/60 * * * *" \
               --replica-timeout 1800 \
               --replica-retry-limit 0 \
               --parallelism 1 \
@@ -103,7 +103,7 @@ jobs:
               --cpu 0.25 \
               --memory 0.5Gi \
               --trigger-type Schedule \
-              --cron-expression "*/15 * * * *" \
+              --cron-expression "*/60 * * * *" \
               --replica-timeout 1800 \
               --replica-retry-limit 0 \
               --parallelism 1 \
